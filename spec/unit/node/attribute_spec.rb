@@ -352,6 +352,12 @@ describe Chef::Node::Attribute do
       @attributes["array"].should == %w{role}
     end
 
+    it "can accept a nil override" do
+      @attributes.normal['overriden_by_nil'] = 'cool value!'
+      @attributes.override['overriden_by_nil'] = nil
+      @attributes['overriden_by_nil'].should == nil
+    end
+
     it "merges nested hashes between precedence levels" do
       @attributes = Chef::Node::Attribute.new({}, {}, {}, {})
       @attributes.env_default = {"a" => {"b" => {"default" => "default"}}}
